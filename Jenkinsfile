@@ -2,30 +2,22 @@ pipeline {
     agent any
 
     tools {
-        // No need to specify python here; use withEnv to set the path directly
-    }
-
-    environment {
-        PYTHON_HOME = "C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310"
-        PATH = "${env.PYTHON_HOME};${env.PATH}"
+        python 'Python' // Make sure 'Python' matches the name in the Global Tool Configuration
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/skwertzke/hello_jenkins.git'
+                checkout scm
             }
         }
+
         stage('Run Python Script') {
             steps {
                 script {
-                    bat '"%PYTHON_HOME%\\python.exe" hello_jenkins.py'
+                    def pythonPath = tool name: 'Python', type: 'PythonInstallation'
+                    bat "${pythonPath}/python.exe hello_jenkins.py"
                 }
-            }
-        }
-        stage('Archive Results') {
-            steps {
-                archiveArtifacts artifacts: '**/output.txt', allowEmptyArchive: true
             }
         }
     }
