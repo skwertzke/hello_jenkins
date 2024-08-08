@@ -12,11 +12,8 @@ pipeline {
         stage('Print Environment Variables') {
             steps {
                 script {
-                    // Print the PATH variable to verify it's correctly set
-                    bat 'echo %PATH%'
-                    
-                    // Verify that cmd is accessible
-                    bat 'C:\\Windows\\System32\\cmd.exe /c echo Hello'
+                    // Print all environment variables to check if PATH is correctly set
+                    bat 'C:\\Windows\\System32\\cmd.exe /c set'
                 }
             }
         }
@@ -24,8 +21,8 @@ pipeline {
         stage('List Files') {
             steps {
                 script {
-                    // List files in the workspace to verify the contents
-                    bat 'dir'
+                    // List the files in the workspace to debug paths
+                    bat 'C:\\Windows\\System32\\cmd.exe /c dir'
                 }
             }
         }
@@ -35,12 +32,8 @@ pipeline {
                 script {
                     // Define the path to the Python executable
                     def pythonPath = 'C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310\\python.exe'
-                    
-                    // Print the Python path to verify it's correct
-                    bat "echo Python Path: ${pythonPath}"
-                    
-                    // Run the Python script
-                    bat "${pythonPath} hello_jenkins.py"
+                    // Run the Python script using cmd.exe
+                    bat "C:\\Windows\\System32\\cmd.exe /c \"${pythonPath} hello_jenkins.py\""
                 }
             }
         }
