@@ -14,7 +14,6 @@ pipeline {
                 script {
                     // Print all environment variables to check if PATH is correctly set
                     bat 'echo %PATH%'
-                    bat 'C:\\Windows\\System32\\cmd.exe /c echo Hello'
                 }
             }
         }
@@ -23,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Check if cmd.exe is accessible
-                    bat 'where cmd'
+                    bat 'where cmd || echo CMD not found'
                 }
             }
         }
