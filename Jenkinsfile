@@ -1,13 +1,16 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "${tool name: 'Python', type: 'python'}/Scripts:${tool name: 'Python', type: 'python'}/:${env.PATH}"
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git 'https://github.com/skwertzke/hello_jenkins.git'
             }
         }
-
         stage('Run Python Script') {
             steps {
                 script {
@@ -15,10 +18,9 @@ pipeline {
                 }
             }
         }
-
         stage('Archive Results') {
             steps {
-                archiveArtifacts artifacts: '**/*.log', allowEmptyArchive: true
+                archiveArtifacts artifacts: '**/output.txt', allowEmptyArchive: true
             }
         }
     }
