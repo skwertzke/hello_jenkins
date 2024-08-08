@@ -2,8 +2,12 @@ pipeline {
     agent any
 
     tools {
-        // This should be the name configured in Global Tool Configuration
-        python 'Python' 
+        // No need to specify python here; use withEnv to set the path directly
+    }
+
+    environment {
+        PYTHON_HOME = "C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310"
+        PATH = "${env.PYTHON_HOME};${env.PATH}"
     }
 
     stages {
@@ -15,8 +19,7 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 script {
-                    // Make sure Python is available on PATH or specify full path
-                    bat '"C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" hello_jenkins.py'
+                    bat '"%PYTHON_HOME%\\python.exe" hello_jenkins.py'
                 }
             }
         }
