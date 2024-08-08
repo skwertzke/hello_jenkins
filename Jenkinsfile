@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        python 'Python' // Make sure 'Python' matches the name in the Global Tool Configuration
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -15,8 +11,7 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 script {
-                    def pythonPath = tool name: 'Python', type: 'PythonInstallation'
-                    bat "${pythonPath}/python.exe hello_jenkins.py"
+                    bat 'C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310\\python.exe hello_jenkins.py'
                 }
             }
         }
