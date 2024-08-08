@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clone the repository
                 checkout scm
             }
         }
@@ -12,15 +11,13 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 script {
-                    // Run the Python script
-                    bat 'python hello_jenkins.py' // For Windows
+                    bat 'python hello_jenkins.py'
                 }
             }
         }
 
         stage('Archive Results') {
             steps {
-                // Archive any results or artifacts if needed
                 archiveArtifacts artifacts: '**/*.log', allowEmptyArchive: true
             }
         }
