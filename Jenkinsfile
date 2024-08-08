@@ -1,8 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        PATH = "${tool name: 'Python', type: 'python'}/Scripts:${tool name: 'Python', type: 'python'}/:${env.PATH}"
+    tools {
+        // Ensure that this name matches the name configured in Jenkins Global Tool Configuration
+        python 'Python' 
     }
 
     stages {
