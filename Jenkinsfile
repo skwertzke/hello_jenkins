@@ -12,8 +12,8 @@ pipeline {
         stage('Print Environment Variables') {
             steps {
                 script {
-                    // Print all environment variables to check if PATH is correctly set
-                    bat 'echo %PATH%'
+                    // Print PATH variable directly using cmd.exe with full path
+                    bat 'C:\\Windows\\System32\\cmd.exe /c echo %PATH%'
                 }
             }
         }
@@ -21,8 +21,8 @@ pipeline {
         stage('Verify CMD Path') {
             steps {
                 script {
-                    // Check if cmd.exe is accessible
-                    bat 'where cmd || echo CMD not found'
+                    // Verify cmd.exe location directly using full path
+                    bat 'C:\\Windows\\System32\\cmd.exe /c where cmd'
                 }
             }
         }
@@ -30,8 +30,8 @@ pipeline {
         stage('List Files') {
             steps {
                 script {
-                    // List the files in the workspace to debug paths
-                    bat 'dir'
+                    // List files in the workspace directly using PowerShell
+                    bat 'powershell -Command "Get-ChildItem"'
                 }
             }
         }
@@ -39,10 +39,11 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 script {
-                    // Define the path to the Python executable
+                    // Specify the full path to the Python executable and script
                     def pythonPath = 'C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310\\python.exe'
-                    // Run the Python script
-                    bat "C:\\Windows\\System32\\cmd.exe /c \"${pythonPath} hello_jenkins.py\""
+                    def scriptPath = 'C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\hello_jenkins\\hello_jenkins.py'
+                    // Run the Python script directly using the full path to Python
+                    bat "\"${pythonPath}\" \"${scriptPath}\""
                 }
             }
         }
