@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        python 'Python' // Ensure this matches the name in Jenkins Global Tool Configuration
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -17,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // Run the Python script
-                    sh 'python hello_jenkins.py'
+                    bat 'python hello_jenkins.py' // Use 'sh' if on Linux or macOS
                 }
             }
         }
