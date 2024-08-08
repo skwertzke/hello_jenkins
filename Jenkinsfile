@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        // Ensure that this name matches the name configured in Jenkins Global Tool Configuration
+        // This should be the name configured in Global Tool Configuration
         python 'Python' 
     }
 
@@ -15,7 +15,8 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 script {
-                    bat 'python hello_jenkins.py'
+                    // Make sure Python is available on PATH or specify full path
+                    bat '"C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310\\python.exe" hello_jenkins.py'
                 }
             }
         }
