@@ -12,8 +12,8 @@ pipeline {
         stage('Print Environment Variables') {
             steps {
                 script {
-                    // Print PATH variable directly using cmd.exe with full path
-                    bat 'C:\\Windows\\System32\\cmd.exe /c echo %PATH%'
+                    // Print PATH variable using PowerShell
+                    bat 'powershell -Command "Write-Output $env:PATH"'
                 }
             }
         }
@@ -21,17 +21,8 @@ pipeline {
         stage('Verify CMD Path') {
             steps {
                 script {
-                    // Verify cmd.exe location directly using full path
-                    bat 'C:\\Windows\\System32\\cmd.exe /c where cmd'
-                }
-            }
-        }
-
-        stage('List Files') {
-            steps {
-                script {
-                    // List files in the workspace directly using PowerShell
-                    bat 'powershell -Command "Get-ChildItem"'
+                    // Verify cmd.exe location using PowerShell
+                    bat 'powershell -Command "Get-Command cmd.exe | Select-Object Source"'
                 }
             }
         }
