@@ -1,10 +1,14 @@
 pipeline {
     agent any
 
+    tools {
+        python 'Python' // Ensure this matches the name in Jenkins Global Tool Configuration
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the repository
+                // Clone the repository
                 checkout scm
             }
         }
@@ -12,16 +16,16 @@ pipeline {
         stage('Run Python Script') {
             steps {
                 script {
-                    // Ensure Python is installed and accessible
-                    def python = tool name: 'Python 3.x', type: 'Python'
-                    bat "${python}/python hello_jenkins.py"
+                    // Run the Python script
+                    sh 'python hello_jenkins.py'
                 }
             }
         }
 
         stage('Archive Results') {
             steps {
-                archiveArtifacts artifacts: 'output.txt'
+                // Archive any results or artifacts if needed
+                archiveArtifacts artifacts: '**/*.log', allowEmptyArchive: true
             }
         }
     }
