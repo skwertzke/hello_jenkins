@@ -12,8 +12,14 @@ pipeline {
         stage('List Files') {
             steps {
                 script {
-                    // List the files in the workspace to debug paths
+                    // Print the PATH variable to verify it's correctly set
+                    bat 'echo %PATH%'
+                    
+                    // List files in the workspace to verify the contents
                     bat 'dir'
+                    
+                    // Verify that cmd is accessible
+                    bat 'C:\\Windows\\System32\\cmd.exe /c echo Hello'
                 }
             }
         }
@@ -23,6 +29,10 @@ pipeline {
                 script {
                     // Define the path to the Python executable
                     def pythonPath = 'C:\\Users\\dilia\\AppData\\Local\\Programs\\Python\\Python310\\python.exe'
+                    
+                    // Print the Python path to verify it's correct
+                    bat "echo Python Path: ${pythonPath}"
+                    
                     // Run the Python script
                     bat "${pythonPath} hello_jenkins.py"
                 }
