@@ -9,17 +9,23 @@ pipeline {
             }
         }
 
-        stage('List Files') {
+        stage('Print Environment Variables') {
             steps {
                 script {
                     // Print the PATH variable to verify it's correctly set
                     bat 'echo %PATH%'
                     
-                    // List files in the workspace to verify the contents
-                    bat 'dir'
-                    
                     // Verify that cmd is accessible
                     bat 'C:\\Windows\\System32\\cmd.exe /c echo Hello'
+                }
+            }
+        }
+
+        stage('List Files') {
+            steps {
+                script {
+                    // List files in the workspace to verify the contents
+                    bat 'dir'
                 }
             }
         }
