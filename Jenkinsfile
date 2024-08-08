@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     // Run the Python script
-                    bat 'python hello_jenkins.py' // Use 'sh' if on Linux or macOS
+                    bat 'python hello_jenkins.py' // For Windows
                 }
             }
         }
